@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moisés Lino | Gerencia de Operações e Vendas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #030712;
+            --accent-color: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --premium-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        @media print {
+            :root {
+                --bg-color: #ffffff;
+                --text-primary: #000000;
+                --text-secondary: #475569;
+                --card-bg: transparent;
+                --card-border: #e2e8f0;
+                --accent-color: #2563eb;
+            }
+            body { padding: 0; background: white; }
+            .container { 
+                box-shadow: none; 
+                border: none; 
+                width: 100%; 
+                max-width: 100%;
+                padding: 0;
+            }
+            .premium-btn, .quality-icon { display: none; }
+            h1 { -webkit-text-fill-color: black; }
+            .experience-card { border-left: 2px solid #2563eb; page-break-inside: avoid; }
+            section { page-break-inside: avoid; }
+            .quality-card { border-bottom: 1px solid #f1f5f9; padding: 15px 0; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--card-border), transparent, var(--card-border));
+            border-radius: 24px;
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-item span {
+            color: var(--text-primary);
+        }
+
+        section {
+            margin-bottom: 45px;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--card-border);
+        }
+
+        .profile-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .profile-text b {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.015);
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 3px solid var(--accent-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .exp-title h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .exp-title p {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .exp-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .exp-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .exp-desc ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .exp-desc li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 5px;
+        }
+
+        .exp-desc li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .skill-group {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+        }
+
+        .skill-group h4 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-color);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin: 0 6px 10px 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            font-weight: 500;
+        }
+
+        .quality-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .quality-icon {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .quality-text b {
+            display: block;
+            font-size: 1rem;
+        }
+
+        .quality-text span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px; }
+            h1 { font-size: 2.2rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .exp-header { flex-direction: column; gap: 5px; }
+        }
+
+        .premium-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            background: var(--premium-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px -5px var(--accent-glow);
+        }
+
+        .premium-btn:hover {
+            box-shadow: 0 15px 30px -5px var(--accent-glow);
+        }
+
+        .highlight-card {
+            background: linear-gradient(rgba(59, 130, 246, 0.1), transparent);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Moisés Lino</h1>
+            <div class="tagline">Gerente de Operações | Gestor Comercial</div>
+            <div class="contact-info">
+                <div class="contact-item">📞 <span>(85) 98204-7464</span></div>
+                <div class="contact-item">📍 <span>Caucaia, CE</span></div>
+                <div class="contact-item">📧 <span>moises.contato@email.com</span></div>
+            </div>
+        </header>
+
+        <section id="perfil">
+            <h2>Perfil Executivo</h2>
+            <div class="highlight-card">
+                <p class="profile-text">
+                    Gestor orientado a resultados com sólido histórico em <b>estratégia comercial</b> e <b>otimização de processos</b>. 
+                    Especialista em identificar oportunidades de crescimento em mercados competitivos e liderar operações sob alta pressão. 
+                    Minha visão é pautada na <b>resolução proativa de problemas</b>, resiliência operacional e na transformação de desafios em resultados financeiros sustentáveis.
+                </p>
+            </div>
+        </section>
+
+        <section id="qualidades">
+            <h2>Diferenciais Competitivos</h2>
+            <div class="grid-2">
+                <div class="quality-card">
+                    <div class="quality-icon"></div>
+                    <div class="quality-text">
+                        <b>Visão de Oportunidades</b>
+                        <span>Faro aguçado para novos nichos e expansão de mercado.</span>
+                    </div>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon"></div>
+                    <div class="quality-text">
+                        <b>Resiliência Operacional</b>
+                        <span>Excelência na gestão de crises e tomada de decisão sob pressão.</span>
+                    </div>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon"></div>
+                    <div class="quality-text">
+                        <b>Gestão de Performance</b>
+                        <span>Foco absoluto em KPIs e atingimento de metas agressivas.</span>
+                    </div>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon"></div>
+                    <div class="quality-text">
+                        <b>Liderança Estratégica</b>
+                        <span>Capacidade de inspirar e coordenar equipes de alto desempenho.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia">
+            <h2>Trajetória Profissional</h2>
+            
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Styler Chinelos e Personalizados</h3>
+                        <p>Gestor de Marketplace & Operações</p>
+                    </div>
+                    <span class="exp-date">Atual</span>
+                </div>
+                <div class="exp-desc">
+                    Lidero a estratégia completa de vendas digitais e processos internos, focado em escalabilidade:
+                    <ul>
+                        <li>Gestão estratégica de canais de marketplace e marketing digital.</li>
+                        <li>Otimização de processos de personalização para redução de lead time.</li>
+                        <li>Coordenação de atendimento ao cliente focado em NPS e fidelização.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Zion Celulares e Acessórios</h3>
+                        <p>Administrador de Ponto de Venda (PDV)</p>
+                    </div>
+                    <span class="exp-date">Exp. Anterior</span>
+                </div>
+                <div class="exp-desc">
+                    Responsável pela gestão integral da unidade de negócio:
+                    <ul>
+                        <li>Controle rigoroso de estoque, caixa e capital de giro.</li>
+                        <li>Negociação direta com fornecedores para otimização de margem.</li>
+                        <li>Gestão operacional da linha de frente de vendas de eletrônicos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Top Móveis</h3>
+                        <p>Consultor de Vendas Estratégicas</p>
+                    </div>
+                    <span class="exp-date">Exp. Anterior</span>
+                </div>
+                <div class="exp-desc">
+                    Foco em fechamento de grandes contas e vendas consultivas complexas:
+                    <ul>
+                        <li>Atingimento consistente de metas agressivas de faturamento.</li>
+                        <li>Análise de perfil de cliente para propostas de alto valor agregado.</li>
+                        <li>Garantia de índices de satisfação elevados em ciclos longos de venda.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades">
+            <h2>Competências Chave</h2>
+            <div class="grid-2">
+                <div class="skill-group">
+                    <h4>Gestão & Negócios</h4>
+                    <span class="skill-tag">Liderança de Equipes</span>
+                    <span class="skill-tag">Gestão Financeira</span>
+                    <span class="skill-tag">Estratégia de Marketplace</span>
+                    <span class="skill-tag">Business Intelligence</span>
+                </div>
+                <div class="skill-group">
+                    <h4>Tecnologia & Soft Skills</h4>
+                    <span class="skill-tag">Desenvolvedor Mobile e Software</span>
+                    <span class="skill-tag">Resolução de Problemas</span>
+                    <span class="skill-tag">Inteligência Emocional</span>
+                    <span class="skill-tag">Inglês Intermediário</span>
+                    <span class="skill-tag">Sistemas de Gestão (ERP)</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="formacao">
+            <h2>Formação & Desenvolvimento</h2>
+            <div class="experience-card" style="border-left-color: var(--text-secondary);">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>UFC - UNIVERSIDADE FEDERAL DO CEARÁ</h3>
+                        <p>Bacharelado em Finanças</p>
+                    </div>
+                    <span class="exp-date">Em curso</span>
+                </div>
+                <p class="exp-desc">Desenvolvimento profundo de gestão financeira, visão analítica de mercado e indicadores estratégicos para tomada de decisão em negócios.</p>
+            </div>
+
+            <div class="experience-card" style="border-left-color: var(--text-secondary);">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>SENAI</h3>
+                        <p>Técnico em Eletrotécnica (Conhecimento Transversal)</p>
+                    </div>
+                    <span class="exp-date">Em curso</span>
+                </div>
+                <p class="exp-desc">Base técnica robusta para compreensão de processos elétricos industriais.</p>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
